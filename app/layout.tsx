@@ -20,3 +20,5 @@ export default function RootLayout({
     </html>
   )
 }
+
+// "children" gets replaced by the run time pages depending upon where the user is at Runtime.
