@@ -1,0 +1,9 @@
+.card {
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+
+/*
+No export default blah blah as it's not a node module
+Still importable in .tsx files
+*/

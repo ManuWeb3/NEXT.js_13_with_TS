@@ -1,21 +1,31 @@
+/*
+Keep only those elements that are truly global.
+Anything specific to a component somewhere else
+*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/*
+Default setting: Light mode
+*/
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
 }
 
+/*
+Check whether Dark mode enabled
+*/
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
   }
 }
 
+/*
+only --foreground-rgb is used in the body element 
+No bg-start/end unlike above as that was being used earlier in our Home page's gradiemnt ???
+*/
 body {
   color: rgb(var(--foreground-rgb));
   padding: 1rem;
