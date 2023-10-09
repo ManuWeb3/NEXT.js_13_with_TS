@@ -3,7 +3,10 @@ const AddToCart = () => {
   return (
     <>
       <div>
-        <button onClick={() => console.log('Button Clicked')}>
+        <button
+          className="btn btn-primary"
+          onClick={() => console.log('Button Clicked')}
+        >
           Add To Cart
         </button>
       </div>
