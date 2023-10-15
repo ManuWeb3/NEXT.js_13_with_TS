@@ -1,12 +1,13 @@
+// example of searchParams
 interface Props {
   params: { slug: string[] }
-  searchParams: { sortOrdering: string }
+  searchParams: { sortOrder: string }
 }
 
-const page = ({ params: { slug }, searchParams: { sortOrdering } }: Props) => {
+const page = ({ params: { slug }, searchParams: { sortOrder } }: Props) => {
   return (
     <div>
-      Products -- {slug} {sortOrdering}
+      Products -- {slug} {sortOrder}
     </div>
   )
 }

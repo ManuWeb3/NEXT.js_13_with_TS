@@ -1,11 +1,19 @@
+// actual implementation of searchParams
 import UserTable from './UserTable'
 
-const UsersPage = () => {
+interface Props {
+  searchParams: { sortOrder: string }
+}
+
+// captured at the page level (above) + passed into the Component (below)
+const UsersPage = async ({ searchParams: { sortOrder } }: Props) => {
+  console.log(sortOrder)
   return (
     <>
       {/* <p>{new Date().toLocaleTimeString()}</p> */}
-      <h1>User names below:</h1>
-      <UserTable />
+      <h1>User Names below:</h1>
+      <p>Sorted as: {sortOrder}</p>
+      <UserTable sortOrder={sortOrder} />
     </>
   )
 }
