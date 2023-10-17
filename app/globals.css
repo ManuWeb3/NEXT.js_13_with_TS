@@ -29,6 +29,6 @@ No bg-start/end unlike above as that was being used earlier in our Home page's g
 body {
   color: rgb(var(--foreground-rgb));
   padding: 1rem;
-  border: 20px solid black;
+  /* border: 5px solid black; */
   margin: 1%;
 }
