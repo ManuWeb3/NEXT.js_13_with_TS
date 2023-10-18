@@ -1,5 +1,7 @@
 // actual implementation of searchParams
 import UserTable from './UserTable'
+import Link from 'next/link'
+import { Suspense } from 'react'
 
 interface Props {
   searchParams: { sortOrder: string }
@@ -13,7 +15,13 @@ const UsersPage = async ({ searchParams: { sortOrder } }: Props) => {
       {/* <p>{new Date().toLocaleTimeString()}</p> */}
       <h1>User Names below:</h1>
       <p>Sorted as: {sortOrder}</p>
-      <UserTable sortOrder={sortOrder} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <UserTable sortOrder={sortOrder} />
+      </Suspense>
+
+      <Link href="/users/new" className="btn">
+        New User
+      </Link>
     </>
   )
 }
