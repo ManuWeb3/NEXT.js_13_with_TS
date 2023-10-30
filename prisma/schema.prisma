@@ -1,36 +1,20 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// These are called blocks
-
-// 1. generates a Prisma client (prisma generate (arterfact))
 generator client {
   provider = "prisma-client-js"
 }
 
-// 2. specify datasource/db = mysql
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        Int      @id @default(autoincrement()) // @ = at = ATtribute
-  email     String   @unique
-  name      String
-  followers Int      @default(0)
-  isActive  Boolean? @default(true)
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  name         String
+  followers    Int      @default(0)
+  isActive     Boolean  @default(true)
+  registeredAt DateTime @default(now())
 }
-
-//The MySQL data source connector connects Prisma to a MySQL database server.
-
-// The fields passed to the datasource block are:
-// provider: Specifies the mysql data source connector.
-// url: Specifies the connection URL for the MySQL database server. In this case, an environment variable is used to provide the connection URL.
-
-// Model blocks
-// 3. User
-
-// npx porisma format
-// with all primitive types, can be model-types as well (derived/user defined = nesting = "Relationships")
-// models and enums can have inter-relations in "types" of keys in any model
