@@ -12,9 +12,15 @@ datasource db {
 
 model User {
   id           Int      @id @default(autoincrement())
-  email        String   @unique
+  email        String   @unique // if tried to create 2nd user with the same email id, 500 Internal Server Error
   name         String
   followers    Int      @default(0)
   isActive     Boolean  @default(true)
   registeredAt DateTime @default(now())
+}
+
+model Product {
+  id    Int    @id @default(autoincrement())
+  name  String
+  price Float
 }
