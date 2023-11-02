@@ -4,7 +4,7 @@
 // it's a Request Handler fn. this time
 
 // similarly, refactor PUT using zod
-import { NextFetchEvent, NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import schema from './schema'
 import prisma from '@/prisma/client'
 
@@ -32,43 +32,43 @@ export async function POST(request: NextRequest) {
   // ideally, real-app, validation of Request Body (coming form client)
   // If valid, return data, else error 400 (Client-side code = Bad Request)
   // if a user/client sent a bad data in the request (body), then client-side error = 400
-  
+
   // Level # 1 check: request-body valid Or not
 
   // if (!body.name)
   const validation = schema.safeParse(body) // parse yells for an error whereas safeParse doesn't + schema test gets applied on "body"
-    if(!validation.success)
-      return NextResponse.json(
-        // { error: 'Valid name is required' }, commented to let zod take care of the errors
-        validation.error.errors,
-        { status: 400 } // 400 = Bad Request
-      )
+  if (!validation.success)
+    return NextResponse.json(
+      // { error: 'Valid name is required' }, commented to let zod take care of the errors
+      validation.error.errors,
+      { status: 400 } // 400 = Bad Request
+    )
 
   // Level # 2 check: if Not a Bad Request, is emial id duplicate?
 
   // check whether a user with this email id already exists, using GET
   const user = await prisma.user.findUnique({
     where: {
-      email: body.email   // 1st "email" = DB column
-    }
+      email: body.email, // 1st "email" = DB column
+    },
   })
 
-  if(user)
-    return NextResponse.json({error: 'User already exists'}, {status: 400})
+  if (user)
+    return NextResponse.json({ error: 'User already exists' }, { status: 400 })
 
   // Finally, create the data in DB with the new user, when both the above checks passed
 
   const newUser = await prisma.user.create({
-      data : {
-        // explicitly extract properties out of pasred "body" JS object
-        // id = auto, regAt = now(), 2 default values -> total 6 done for the next-row where data is being created in DB
-        name: body.name,
-        email: body.email
-      }
-    })
-    return NextResponse.json(newUser, { status: 201 }) // .json() is of NextJS response -> NO Promise
+    data: {
+      // explicitly extract properties out of pasred "body" JS object
+      // id = auto, regAt = now(), 2 default values -> total 6 done for the next-row where data is being created in DB
+      name: body.name,
+      email: body.email,
+    },
+  })
+  return NextResponse.json(newUser, { status: 201 }) // .json() is of NextJS response -> NO Promise
 }
-  
+
 /*return NextResponse.json(body)
 }*/
 
