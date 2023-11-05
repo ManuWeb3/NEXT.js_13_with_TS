@@ -1,4 +1,4 @@
-// here, app/auth/Provider = wrapper VS app/api/auth/[...nextauth]/NExtAuth object {Google provider}
+// here, app->/auth/Provider = wrapper VS app->/api/auth/[...nextauth]/NextAuth object {Google provider}
 
 'use client'
 // no Metadata here unlike RootLayout, hence 'use client' works fine

@@ -11,20 +11,52 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique // if tried to create 2nd user with the same email id, 500 Internal Server Error
-  name         String
-  followers    Int      @default(0)
-  isActive     Boolean  @default(true)
-  registeredAt DateTime @default(now())
+model Account {
+  id                 String    @id @default(cuid())
+  userId             String
+  providerType       String
+  providerId         String
+  providerAccountId  String
+  refreshToken       String?
+  accessToken        String?
+  accessTokenExpires DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  user               User      @relation(fields: [userId], references: [id])
+
+  @@unique([providerId, providerAccountId])
 }
 
-// changed from Product (conventional MySQL Server) -> Item (PlanetScale)
-// to avoid conflict with products table already created using Web Console
-model Item {
-  id    Int    @id @default(autoincrement())
-  name  String
-  price Float
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  expires      DateTime
+  sessionToken String   @unique
+  accessToken  String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id])
 }
-// price type changed to Int (dev branch of PlanetScale-planetdb) from Float (main branch of PlanetScale-planetdb)
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model VerificationRequest {
+  id         String   @id @default(cuid())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, token])
+}

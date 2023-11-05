@@ -1,10 +1,14 @@
 // here, app/auth/Provider = wrapper VS app/api/auth/[...nextauth]/NExtAuth object {Google provider}
 
+import prisma from '@/prisma/client' // "prisma" showed up by default bcz we've 1 single global instance of it
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import { NextAuthOptions } from 'next-auth'
 import NextAuth from 'next-auth/next'
 import GoogleProvider from 'next-auth/providers/google'
 
 // currently only 1 auth options = sign in with Google
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       // clientID won't accept undefined but process.env may return undefined, hence typesetting needed
@@ -13,6 +17,10 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
+  session: {
+    strategy: 'jwt',
+  },
+  // debug: true,
 }
 // providers: [] = Authentication options provided to the user
 const handler = NextAuth(authOptions)
