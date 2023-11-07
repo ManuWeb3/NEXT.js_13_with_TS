@@ -1,6 +1,7 @@
 // Accessing authentication sessions on the Client
 'use client'
 // due to useSession() below + using a React Hook => it's a client component
+// Though 'use client' directive is NOT mandatory as no browser interaction is happening with user - later - details
 
 // all children (Home/Admin/Users) will be loaded in {children} underneath the NavBar
 // Location => Ordering

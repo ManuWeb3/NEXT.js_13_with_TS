@@ -24,11 +24,11 @@ export { default } from 'next-auth/middleware'
 
 // config  = convention
 export const config = {
-  // : * = zero / more parameters after users slug
+  // * = zero / more parameters after users slug
   // + = 1 or more
   // ? = 0 or 1
   // ['/users/:id123+]
-  matcher: ['/dashboard/:path'], // though dashboard does not exist
+  matcher: ['/dashboard/:path+'], // though dashboard does not exist
   // IDEALLY, matcher: ['/dashboard/:path*] => dashboard inclusive (*), then any path ahead of it.
   // "path" / "id" is NO convetion
 }
