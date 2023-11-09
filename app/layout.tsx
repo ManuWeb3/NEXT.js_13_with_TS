@@ -44,8 +44,8 @@ export default function RootLayout({
   return (
     <html data-theme="winter" lang="en">
       <GoogleAnalyticsScript></GoogleAnalyticsScript>
-      {/* <body className={poppins.className}> */}
-      <body className={poppins.variable}>
+      <body className={inter.className}>
+        {/* <body className={poppins.variable}> */}
         <AuthProvider123>
           <NavBar />
           <main className="p-5">
