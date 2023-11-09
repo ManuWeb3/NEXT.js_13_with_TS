@@ -8,7 +8,7 @@ Anything specific to a component somewhere else
 
 /**
  * This injects Tailwind's base styles and any base styles registered by
- * plugins.
+ * plugins. (e.g. poppins - kind of plugin)
  */
 @tailwind base;
 /**
@@ -58,6 +58,6 @@ body {
 }
 @layer base {
   h1 {
-    @apply font-extrabold text-2xl mb-3;
+    @apply font-extrabold text-2xl mb-3 font-poppins;
   }
 }
